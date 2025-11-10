@@ -37,40 +37,12 @@ header h1 {
   text-align: center;
 }
 
-/* .load-btn {
-  background: rgba(255, 255, 255, 0.2);
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  padding: 15px 30px;
-  border-radius: 25px;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-} */
-
-/* .load-btn:hover {
-  background: rgba(255, 255, 255, 0.3);
-  border-color: rgba(255, 255, 255, 0.5);
-  transform: translateY(-2px);
-}
-
-.load-btn:active {
-  transform: translateY(0);
-} */
-
 .file-name {
   font-size: 0.9rem;
   opacity: 0.8;
   word-break: break-all;
   min-height: 1rem;
 }
-
-/* .loop-control {
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
-} */
 
 .loop-toggle {
   display: flex;
@@ -162,17 +134,10 @@ header h1 {
   box-shadow: rgb(180 12 129 / 63%) 0px 5px 0px 0px;
 }
 
-.stop-btn:hover {
-  /* background: rgba(244, 67, 54, 0.3);
-  border-color: rgba(244, 67, 54, 0.5); */
-  /* transform: translateY(-2px); */
-}
-
 .sample-btn.stop-btn:active,
 .sample-btn.load-btn:active,
 .sample-btn.loop-btn:active {
   transform: translateY(2px);
-  /* background: rgba(244, 67, 54, 0.4); */
   box-shadow: rgb(149 149 149) 0px 4px 0px 0px;
 }
 
@@ -202,11 +167,6 @@ header h1 {
   cursor: pointer;
   overflow: hidden;
 }
-
-/* .sample-btn:hover {
-  box-shadow: rgb(201, 46, 70) 0px 5px 0px 0px;
-  box-shadow: rgb(149 149 149) 0px 7px 0px 0px;
-} */
 
 .sample-btn:active {
   box-shadow: rgb(149 149 149) 0px 5px 0px 0px;
@@ -240,14 +200,6 @@ header h1 {
   -webkit-box-orient: vertical;
 }
 
-/* .sample-btn.has-sample::after {
-  content: "🎵";
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  font-size: 0.8rem;
-} */
-
 .sample-btn.has-sample::before {
   content: "Double-clic ou maintenez pour éditer";
   position: absolute;
@@ -270,13 +222,6 @@ header h1 {
 .sample-btn.playing {
   background: rgba(76, 175, 80, 0.3);
   box-shadow: rgb(5 125 0 / 33%) 0px 7px 0px 0px;
-  /* animation: pulse 0.5s ease-out; */
-}
-
-.sample-btn.playing:after {
-  /* background: rgba(255, 193, 7, 0.4);
-  box-shadow: rgb(200 138 74 / 79%) 0px 7px 0px 0px; */
-  /* animation: pulse 0.5s ease-out; */
 }
 
 .sample-btn.playing:active {
@@ -286,9 +231,6 @@ header h1 {
 .sample-btn.looping {
   background: rgb(255 7 180 / 40%);
   box-shadow: rgb(180 12 129 / 63%) 0px 7px 0px 0px;
-  /* background: rgba(138, 43, 226, 0.4);
-  border-color: rgba(138, 43, 226, 0.6); */
-  /* animation: loop-pulse 1.5s ease-in-out infinite; */
 }
 
 .sample-btn.looping:active {
@@ -565,46 +507,16 @@ header h1 {
   }
 }
 
-/* Touch device optimizations */
-@media (hover: none) and (pointer: coarse) {
-  /* .sample-btn:hover {
-    transform: none;
-    background-color: rgba(255, 255, 255, 0.15);
-    border-color: rgba(255, 255, 255, 0.2);
-  } */
-
-  /* .load-btn:hover {
-    transform: none;
-    background: rgba(255, 255, 255, 0.2);
-    border-color: rgba(255, 255, 255, 0.3);
-  } */
-
-  .stop-btn:hover {
-    transform: none;
-    background-color: rgba(244, 67, 54, 0.2);
-    border-color: rgba(244, 67, 54, 0.3);
-  }
-}
-
 /* Very small screens */
 @media (max-width: 400px) {
   .container {
     padding: 10px;
   }
 
-  /* .sampler-grid {
-    gap: 8px;
-  } */
-
   .sample-btn {
     font-size: 1.1rem;
     border-radius: 10px;
   }
-
-  /* .load-btn {
-    padding: 12px 24px;
-    font-size: 1rem;
-  } */
 
   .stop-btn {
     padding: 10px 20px;
