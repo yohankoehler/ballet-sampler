@@ -1,0 +1,22 @@
+{
+  "name": "kite-sampler",
+  "version": "1.0.0",
+  "description": "A web-based music sampler with wavesurfer.js",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "build": "npm install"
+  },
+  "keywords": ["sampler", "music", "audio", "wavesurfer"],
+  "author": "Kite Sampler",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "wavesurfer.js": "^7.8.6"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
