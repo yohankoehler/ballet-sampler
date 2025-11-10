@@ -1,70 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kite Sampler</title>
+    <title>Ballet Sampler</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <div class="container">
         <header>
-            <h1>🪁 Kite Sampler</h1>
+            <h1>Ballet Sampler</h1>
         </header>
 
         <div class="controls">
             <input type="file" id="audioFile" accept="audio/*" style="display: none;">
-            <button id="loadButton" class="load-btn">📁 Load Music File</button>
+
             <div id="fileName" class="file-name"></div>
+            <div class="controls-btns">
 
-            <div class="loop-control">
-                <label class="loop-toggle">
-                    <input type="checkbox" id="loopMode">
-                    <span class="loop-slider"></span>
-                    <span class="loop-label">🔄 Loop Mode</span>
-                </label>
-            </div>
+                <button id="loadButton" class="load-btn sample-btn"></button>
+                <div class="loop-control">
+                    <button class="sample-btn loop-btn"></button>
+                </div>
 
-            <div class="stop-control">
-                <button id="stopButton" class="stop-btn">⏹️ Stop All</button>
+                <div class="stop-control">
+                    <button id="stopButton" class="sample-btn stop-btn"></button>
+                </div>
             </div>
         </div>
 
         <div class="sampler-grid">
             <button class="sample-btn" data-pad="1">
-                <div class="pad-number">1</div>
                 <div class="sample-name"></div>
             </button>
             <button class="sample-btn" data-pad="2">
-                <div class="pad-number">2</div>
                 <div class="sample-name"></div>
             </button>
             <button class="sample-btn" data-pad="3">
-                <div class="pad-number">3</div>
                 <div class="sample-name"></div>
             </button>
             <button class="sample-btn" data-pad="4">
-                <div class="pad-number">4</div>
                 <div class="sample-name"></div>
             </button>
             <button class="sample-btn" data-pad="5">
-                <div class="pad-number">5</div>
                 <div class="sample-name"></div>
             </button>
             <button class="sample-btn" data-pad="6">
-                <div class="pad-number">6</div>
                 <div class="sample-name"></div>
             </button>
             <button class="sample-btn" data-pad="7">
-                <div class="pad-number">7</div>
                 <div class="sample-name"></div>
             </button>
             <button class="sample-btn" data-pad="8">
-                <div class="pad-number">8</div>
                 <div class="sample-name"></div>
             </button>
             <button class="sample-btn" data-pad="9">
-                <div class="pad-number">9</div>
                 <div class="sample-name"></div>
             </button>
         </div>
@@ -74,22 +66,22 @@
     <div id="waveformModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Select Sample Region - Pad <span id="currentPad"></span></h2>
+                <h2>Sélectionner Région sample - Pad <span id="currentPad"></span></h2>
                 <button class="close-btn">&times;</button>
             </div>
             <div class="modal-body">
                 <div class="sample-name-input">
-                    <label for="sampleName">Sample Name:</label>
-                    <input type="text" id="sampleName" placeholder="Enter sample name..." maxlength="20">
+                    <label for="sampleName">Nom du sample :</label>
+                    <input type="text" id="sampleName" placeholder="Entrez le nom du sample..." maxlength="20">
                 </div>
                 <div id="waveform"></div>
                 <div class="modal-controls">
-                    <button id="playRegion" class="control-btn">▶️ Play Region</button>
-                    <button id="saveRegion" class="control-btn save-btn">💾 Save Region</button>
-                    <button id="clearRegion" class="control-btn clear-btn">🗑️ Clear</button>
+                    <button id="playRegion" class="control-btn">▶️ Jouer Région</button>
+                    <button id="saveRegion" class="control-btn save-btn">💾 Sauvegarder</button>
+                    <button id="clearRegion" class="control-btn clear-btn">🗑️ Effacer</button>
                 </div>
                 <div class="region-info">
-                    <span id="regionTime">No region selected</span>
+                    <span id="regionTime">Aucune région sélectionnée</span>
                 </div>
             </div>
         </div>
@@ -97,4 +89,5 @@
 
     <script type="module" src="script.js"></script>
 </body>
+
 </html>
