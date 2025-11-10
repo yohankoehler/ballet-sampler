@@ -1,6 +1,6 @@
 // Import WaveSurfer and Regions plugin using proper ES module syntax
-import WaveSurfer from "/wavesurfer.js/dist/wavesurfer.esm.js";
-import RegionsPlugin from "/wavesurfer.js/dist/plugins/regions.esm.js";
+import WaveSurfer from "./wavesurfer.js/dist/wavesurfer.esm.js";
+import RegionsPlugin from "./wavesurfer.js/dist/plugins/regions.esm.js";
 
 class KiteSampler {
   constructor() {
