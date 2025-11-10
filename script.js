@@ -25,6 +25,7 @@ class KiteSampler {
   init() {
     console.log("Initializing Kite Sampler...");
     this.bindEvents();
+    this.loadDefaultAudio();
   }
 
   bindEvents() {
@@ -253,6 +254,37 @@ class KiteSampler {
       console.error("Error loading sample data:", error);
     }
     return false;
+  }
+
+  async loadDefaultAudio() {
+    try {
+      console.log("Loading default audio file: ballet-2.mp3");
+
+      // Fetch the default audio file
+      const response = await fetch('./ballet-2.mp3');
+      if (!response.ok) {
+        console.log("Default audio file not found, skipping auto-load");
+        document.getElementById("fileName").textContent = "Cliquez sur le bouton pour charger un fichier audio";
+        return;
+      }
+
+      const audioBlob = await response.blob();
+
+      // Create a File object from the blob
+      const defaultFile = new File([audioBlob], 'ballet-2.mp3', {
+        type: 'audio/mpeg',
+        lastModified: Date.now()
+      });
+
+      // Load the default file
+      await this.loadAudioFile(defaultFile);
+
+      console.log("Default audio file loaded successfully");
+    } catch (error) {
+      console.log("Could not load default audio file:", error);
+      // Show fallback message
+      document.getElementById("fileName").textContent = "Cliquez sur le bouton pour charger un fichier audio";
+    }
   }
 
   async loadAudioFile(file) {
