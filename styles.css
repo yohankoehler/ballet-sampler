@@ -52,12 +52,31 @@ header h1 {
 
 .sample-btn.stop-btn,
 .sample-btn.load-btn,
-.sample-btn.loop-btn {
+.sample-btn.loop-btn,
+.sample-btn.export-btn,
+.sample-btn.import-btn {
   width: 50px;
   box-shadow: rgb(149 149 149) 0px 5px 0px 0px;
   background-size: 24px 24px;
   background-repeat: no-repeat;
   background-position: center;
+}
+
+.sample-btn.export-btn {
+  background-image: url("./save-item.svg");
+}
+
+.sample-btn.import-btn {
+  background-image: url("./import-content.svg");
+}
+
+.sample-btn.stop-btn:active,
+.sample-btn.load-btn:active,
+.sample-btn.loop-btn:active,
+.sample-btn.export-btn:active,
+.sample-btn.import-btn:active {
+  transform: translateY(2px);
+  box-shadow: rgb(149 149 149) 0px 4px 0px 0px;
 }
 
 .sample-btn.stop-btn {
@@ -76,12 +95,6 @@ header h1 {
   box-shadow: rgb(180 12 129 / 63%) 0px 5px 0px 0px;
 }
 
-.sample-btn.stop-btn:active,
-.sample-btn.load-btn:active,
-.sample-btn.loop-btn:active {
-  transform: translateY(2px);
-  box-shadow: rgb(149 149 149) 0px 4px 0px 0px;
-}
 
 .sampler-grid {
   display: grid;
