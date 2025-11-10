@@ -379,6 +379,16 @@ header h1 {
   border-color: rgba(244, 67, 54, 0.6);
 }
 
+.delete-btn {
+  background: rgba(244, 67, 54, 0.2);
+  border-color: rgba(244, 67, 54, 0.3);
+}
+
+.delete-btn:hover {
+  background: rgba(244, 67, 54, 0.4);
+  border-color: rgba(244, 67, 54, 0.6);
+}
+
 .cancel-btn {
   background: rgba(255, 152, 0, 0.2);
   border-color: rgba(255, 152, 0, 0.3);

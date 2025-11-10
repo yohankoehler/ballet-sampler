@@ -158,6 +158,10 @@ class KiteSampler {
       this.clearCurrentRegion();
     });
 
+    document.getElementById("deleteSample").addEventListener("click", () => {
+      this.deleteSample();
+    });
+
     // Close modal when clicking outside
     document.getElementById("waveformModal").addEventListener("click", (e) => {
       if (e.target.id === "waveformModal") {
@@ -337,6 +341,9 @@ class KiteSampler {
     // Reset clear button to default state
     this.updateClearButton();
 
+    // Show/hide delete button based on whether sample exists
+    this.updateDeleteButton();
+
     // Prevent body scroll on mobile
     document.body.style.overflow = "hidden";
 
@@ -372,6 +379,19 @@ class KiteSampler {
       clearBtn.textContent = "🗑️ Effacer";
       clearBtn.classList.add("clear-btn");
       clearBtn.classList.remove("cancel-btn");
+    }
+  }
+
+  updateDeleteButton() {
+    const deleteBtn = document.getElementById("deleteSample");
+    const hasExistingSample = this.sampleData[this.currentPad] !== undefined;
+
+    if (hasExistingSample) {
+      // Show delete button when editing existing sample
+      deleteBtn.style.display = "inline-block";
+    } else {
+      // Hide delete button when creating new sample
+      deleteBtn.style.display = "none";
     }
   }
 
@@ -602,6 +622,40 @@ class KiteSampler {
       // Update button state (will become cancel if there was original data)
       this.updateClearButton();
     }
+  }
+
+  deleteSample() {
+    // Only allow deletion if there's actually a sample
+    if (!this.sampleData[this.currentPad]) {
+      alert("Aucun échantillon à supprimer sur ce pad.");
+      return;
+    }
+
+    // Confirm deletion
+    const sampleName = this.sampleData[this.currentPad]?.name || `Échantillon ${this.currentPad}`;
+    const confirmDelete = confirm(`Êtes-vous sûr de vouloir supprimer "${sampleName}" du pad ${this.currentPad} ?\n\nCette action ne peut pas être annulée.`);
+
+    if (!confirmDelete) return;
+
+    // Stop any currently playing audio for this pad
+    this.stopAllSamples();
+
+    // Remove the sample data
+    delete this.sampleData[this.currentPad];
+
+    // Update the sample buttons display
+    this.updateSampleButtons();
+
+    // Save to localStorage
+    this.saveSampleData();
+
+    // Close the modal
+    this.closeModal();
+
+    // Show success feedback
+    this.showFeedback(`"${sampleName}" supprimé du pad ${this.currentPad}`);
+
+    console.log(`Sample deleted from pad ${this.currentPad}`);
   }
 
   stopAllSamples() {
