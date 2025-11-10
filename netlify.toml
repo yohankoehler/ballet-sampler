@@ -1,39 +1,7 @@
 [build]
   publish = "."
-  command = "npm install"
-
-[[headers]]
-  for = "/*"
-  [headers.values]
-    X-Frame-Options = "DENY"
-    X-XSS-Protection = "1; mode=block"
 
 [[headers]]
   for = "*.js"
   [headers.values]
     Content-Type = "application/javascript; charset=utf-8"
-
-[[headers]]
-  for = "*.css"
-  [headers.values]
-    Content-Type = "text/css; charset=utf-8"
-
-# Serve ES modules with correct MIME type
-[[headers]]
-  for = "*.esm.js"
-  [headers.values]
-    Content-Type = "application/javascript; charset=utf-8"
-
-# Handle SPA routing - but exclude API routes and assets
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-  conditions = {Role = ["admin", "editor"]}
-  force = false
-
-# Ensure static assets are served directly
-[[redirects]]
-  from = "/wavesurfer.js/*"
-  to = "/wavesurfer.js/:splat"
-  status = 200

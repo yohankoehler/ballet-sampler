@@ -1,6 +1,6 @@
-// Import WaveSurfer and Regions plugin using proper ES module syntax
-import WaveSurfer from "./wavesurfer.js/dist/wavesurfer.esm.js";
-import RegionsPlugin from "./wavesurfer.js/dist/plugins/regions.esm.js";
+// Import WaveSurfer and Regions plugin using CDN
+import WaveSurfer from "https://unpkg.com/wavesurfer.js@7.8.6/dist/wavesurfer.esm.js";
+import RegionsPlugin from "https://unpkg.com/wavesurfer.js@7.8.6/dist/plugins/regions.esm.js";
 
 class KiteSampler {
   constructor() {
