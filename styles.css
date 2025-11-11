@@ -161,9 +161,10 @@ header h1 {
   }
 }
 
-.sample-btn.playing {
+.sample-btn.playing:not(.looping) {
   background: rgba(76, 175, 80, 0.3);
   box-shadow: rgb(5 125 0 / 33%) 0px 7px 0px 0px;
+  animation: play-pulse 2s ease-in-out infinite;
 }
 
 .sample-btn.playing:active {
@@ -173,6 +174,7 @@ header h1 {
 .sample-btn.looping {
   background: rgb(255 7 180 / 40%);
   box-shadow: rgb(180 12 129 / 63%) 0px 7px 0px 0px;
+  animation: play-pulse 2s ease-in-out infinite;
 }
 
 .sample-btn.looping:active {
@@ -193,6 +195,21 @@ header h1 {
   animation: spin-mirrored 2s linear infinite;
   filter: brightness(0) saturate(100%) invert(52%) sepia(62%) saturate(4417%)
     hue-rotate(279deg) brightness(102%) contrast(101%);
+}
+
+.sample-btn.playing:not(.looping)::after {
+  content: "";
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 16px;
+  height: 16px;
+  background-image: url("./play.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  filter: brightness(0) saturate(100%) invert(27%) sepia(100%) saturate(2000%)
+    hue-rotate(120deg) brightness(70%) contrast(110%);
 }
 
 .sample-btn.holding {
@@ -243,6 +260,21 @@ header h1 {
   }
   100% {
     transform: scaleX(-1) rotate(-360deg);
+  }
+}
+
+@keyframes play-pulse {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
