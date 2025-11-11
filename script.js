@@ -187,6 +187,20 @@ class KiteSampler {
     document.getElementById("stopButton").addEventListener("click", () => {
       this.stopAllSamples();
     });
+
+    // Export/Import button handlers
+    document.getElementById("exportSamples").addEventListener("click", () => {
+      this.exportSamples();
+    });
+
+    document.getElementById("importSamples").addEventListener("click", () => {
+      document.getElementById("importFile").click();
+    });
+
+    document.getElementById("importFile").addEventListener("change", (e) => {
+      this.importSamples(e.target.files[0]);
+      e.target.value = ""; // Reset file input
+    });
   }
 
   // Generate unique identifier for a file
@@ -656,6 +670,139 @@ class KiteSampler {
     this.showFeedback(`"${sampleName}" supprimé du pad ${this.currentPad}`);
 
     console.log(`Sample deleted from pad ${this.currentPad}`);
+  }
+
+  exportSamples() {
+    // Check if there are any samples to export
+    const hasSamples = Object.keys(this.sampleData).length > 0;
+    if (!hasSamples) {
+      alert("Aucun échantillon à exporter. Créez d'abord des échantillons avant d'exporter.");
+      return;
+    }
+
+    try {
+      // Create export data
+      const exportData = {
+        version: "1.0",
+        exportDate: new Date().toISOString(),
+        audioFileName: this.currentAudio?.name || "unknown",
+        audioFileId: this.currentFileId,
+        samples: {}
+      };
+
+      // Add sample data (without the file objects)
+      Object.keys(this.sampleData).forEach(padNumber => {
+        const sample = this.sampleData[padNumber];
+        exportData.samples[padNumber] = {
+          start: sample.start,
+          end: sample.end,
+          name: sample.name
+        };
+      });
+
+      // Create downloadable file
+      const jsonString = JSON.stringify(exportData, null, 2);
+      const blob = new Blob([jsonString], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+
+      // Create download link
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `ballet-sampler-${exportData.audioFileName}-${new Date().toISOString().split('T')[0]}.json`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+
+      // Show success feedback
+      const sampleCount = Object.keys(this.sampleData).length;
+      this.showFeedback(`${sampleCount} échantillon(s) exporté(s) avec succès !`);
+
+      console.log("Samples exported successfully", exportData);
+    } catch (error) {
+      console.error("Error exporting samples:", error);
+      alert("Erreur lors de l'export des échantillons. Veuillez réessayer.");
+    }
+  }
+
+  async importSamples(file) {
+    if (!file) return;
+
+    try {
+      console.log("Importing samples from:", file.name);
+
+      // Read the file
+      const text = await file.text();
+      const importData = JSON.parse(text);
+
+      // Validate import data structure
+      if (!importData || !importData.samples || typeof importData.samples !== 'object') {
+        alert("Fichier d'import invalide. Veuillez sélectionner un fichier d'export valide.");
+        return;
+      }
+
+      // Check if we have a current audio file
+      if (!this.currentAudio) {
+        alert("Veuillez d'abord charger un fichier audio avant d'importer des échantillons.");
+        return;
+      }
+
+      // Warn if importing to different audio file
+      if (importData.audioFileName && importData.audioFileName !== this.currentAudio.name) {
+        const confirmImport = confirm(
+          `Ces échantillons ont été créés pour "${importData.audioFileName}" ` +
+          `mais vous utilisez "${this.currentAudio.name}".\n\n` +
+          `Les positions des échantillons pourraient ne pas correspondre. Continuer ?`
+        );
+        if (!confirmImport) return;
+      }
+
+      // Count existing samples that will be overwritten
+      const existingPads = Object.keys(this.sampleData);
+      const importPads = Object.keys(importData.samples);
+      const conflictPads = importPads.filter(pad => existingPads.includes(pad));
+
+      if (conflictPads.length > 0) {
+        const confirmOverwrite = confirm(
+          `${conflictPads.length} pad(s) existant(s) seront remplacés: ${conflictPads.join(', ')}.\n\n` +
+          `Voulez-vous continuer ?`
+        );
+        if (!confirmOverwrite) return;
+      }
+
+      // Import the samples
+      let importedCount = 0;
+      Object.keys(importData.samples).forEach(padNumber => {
+        const sampleData = importData.samples[padNumber];
+
+        // Validate sample data
+        if (typeof sampleData.start === 'number' &&
+            typeof sampleData.end === 'number' &&
+            sampleData.start < sampleData.end) {
+
+          // Import the sample
+          this.sampleData[padNumber] = {
+            start: sampleData.start,
+            end: sampleData.end,
+            name: sampleData.name || `Échantillon ${padNumber}`,
+            file: this.currentAudio // Attach current audio file
+          };
+          importedCount++;
+        }
+      });
+
+      // Update UI and save
+      this.updateSampleButtons();
+      this.saveSampleData();
+
+      // Show success feedback
+      this.showFeedback(`${importedCount} échantillon(s) importé(s) avec succès !`);
+
+      console.log(`Successfully imported ${importedCount} samples`);
+    } catch (error) {
+      console.error("Error importing samples:", error);
+      alert("Erreur lors de l'import. Veuillez vérifier que le fichier est valide.");
+    }
   }
 
   stopAllSamples() {
